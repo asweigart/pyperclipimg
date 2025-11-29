@@ -13,7 +13,7 @@ Linux: Either the xclip or wl-copy commands. Install these with `sudo apt instal
 
 To copy an image in a file to the clipboard, pass the filename as a str or Path object to `copy()`. A Pillow `Image` object can also be passed. Any image format that Pillow supports can be used (png, jpg, gif, bmp, webp)
 
-```
+```python-console
 >>> import pyperclipimg as pci
 >>> pci.copy('example.png')  # Copy by filename.
 
@@ -28,7 +28,7 @@ To copy an image in a file to the clipboard, pass the filename as a str or Path 
 
 To paste the image (that is, get the image from the clipboard), call `paste()`. The image on the clipboard is returned as a Pillow `Image` object.
 
-```
+```python-console
 >>> import pyperclipimg as pci
 >>> im = pci.paste()  # Get the clipboard image as an Image object.
 >>> im.show()  # Display the image on the screen.
@@ -36,9 +36,9 @@ To paste the image (that is, get the image from the clipboard), call `paste()`. 
 
 The `paste()` function depends entirely on Pillow's `ImageGrab.grabclipboard()` function.
 
-Pyperclipimg also has `show()` and `save()` functions as a convennient shortcut for the Pillow functions of the same name:
+Pyperclipimg also has `show()` and `save()` functions as a convenient shortcut for the Pillow functions of the same name:
 
-```
+```python-console
 >>> import pyperclipimg as pci
 >>> pci.show()  # Display the clipboard's image on the screen.
 >>> pci.paste().show()  # (Also displays the clipboard's image on the screen.)
