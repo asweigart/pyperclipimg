@@ -12,6 +12,7 @@ import os
 import tempfile
 import datetime
 from pathlib import Path
+import warnings
 
 from PIL import Image, ImageGrab
 import PIL
@@ -48,16 +49,27 @@ def _copy_windows(image):
 
     image = _get_image_from_arg_if_arg_is_filename(image)
 
-    # Get the image as bmp bitmap data:
-    output = io.BytesIO()
-    image.convert("RGB").save(output, "BMP")
-    data = output.getvalue()[14:]
-    output.close()
+    # Get the image as dib bitmap or png data:
+    with io.BytesIO() as output:
+        if image.has_transparency_data:
+            try:
+                format = win32clipboard.RegisterClipboardFormat("PNG")
+            except win32api_error:
+                warnings.warn("Could not copy as png, discarding transparency")
+                format = win32clipboard.CF_DIB
+                image.convert("RGB").save(output, "DIB")
+            else:
+                image.convert("RGBA").save(output, "PNG")
+        else:
+            format = win32clipboard.CF_DIB
+            image.convert("RGB").save(output, "DIB")
+
+        data = output.getvalue()
 
     # Copy the bitmap to the clipboard:
     win32clipboard.OpenClipboard()
     win32clipboard.EmptyClipboard()
-    win32clipboard.SetClipboardData(win32clipboard.CF_DIB, data)
+    win32clipboard.SetClipboardData(format, data)
     win32clipboard.CloseClipboard()
 
 
@@ -120,6 +132,7 @@ def paste():
 # For the current OS, import modules and alias the copy() function:
 if sys.platform == 'win32':
     import win32clipboard
+    from win32api import error as win32api_error
     import io
 
     copy = _copy_windows

@@ -49,5 +49,9 @@ Pyperclipimg also has `show()` and `save()` functions as a convennient shortcut 
 >>> pci.save('some_folder')  # Saves the clipboard's image with a name like some_folder/clipboard-2024-12-17_11-10-51-412737.png.
 ```
 
+**Note**: On Windows, copying an image with transparency makes use of registering PNG as a new clipboard format. This has the following consequences:
+- You might not be able to paste it in everywhere you can with a non-transparent image, since supporting custom clipboard formats is up to applications themselves.
+- The image won't be displayed in the clipboard history (Win+V).
+
 
 This module is by Al Sweigart, the creator of pyperclip which copies and pastes text to the clipboard. This module is separate because it has some heavy dependencies (pywin32, Quartz, etc.)
