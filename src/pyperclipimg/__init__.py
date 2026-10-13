@@ -131,7 +131,8 @@ elif sys.platform == 'darwin':
 
     copy = _copy_macos
 
-elif sys.platform == 'linux':
+else:
+    # Linux, the BSDs and other X11/Wayland systems.
     # Prefer xclip first, then check for wl-copy. (wl-copy causes a window to appear briefly.)
     if shutil.which('xclip'):
         copy = _copy_linux_xclip
@@ -139,12 +140,10 @@ elif sys.platform == 'linux':
         copy = _copy_linux_wlcopy
     else:
         raise NotImplementedError(
-            'pyperclipimg on Linux requires the xclip or wl-copy command. Run either '
-            '`sudo apt install xclip` or `sudo apt install wl-clipboard` and restart'
+            'pyperclipimg on ' + sys.platform + ' requires the xclip or wl-copy command. '
+            'Install xclip or wl-clipboard (on Debian/Ubuntu, run either '
+            '`sudo apt install xclip` or `sudo apt install wl-clipboard`) and restart'
         )
-
-else:
-    assert False, "pyperclipimg cannot run on this platform " + sys.platform
 
 
 def show(filename=None):
