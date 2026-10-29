@@ -1,5 +1,5 @@
 # pyperclipimg
-Python copy() and paste() clipboard functions for images on Windows, macOS, and Linux.
+Python copy() and paste() clipboard functions for images on Windows, macOS, Linux, and the BSDs.
 
 This module has Pillow as a dependency, as well as the following dependencies:
 
@@ -7,7 +7,7 @@ Windows: The pywin32 Python package. Install with `pip install pywin32`
 
 macOS: The pyobjc-framework-quartz Python package. Install with `pip install pyobjc-framework-quartz`
 
-Linux: Either the xclip or wl-copy commands. Install these with `sudo apt install xclip` or `sudo apt install wl-clipboard`
+Linux and the BSDs: Either the xclip or wl-copy commands. Install these with `sudo apt install xclip` or `sudo apt install wl-clipboard`
 
 # Quickstart
 

@@ -35,7 +35,7 @@ setup(
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     test_suite="tests",
-    install_requires=['pillow>=9.4.0;platform_system=="Linux"',
+    install_requires=['pillow>=9.4.0;platform_system!="Windows" and platform_system!="Darwin"',
                       'pillow>=1.1.4;platform_system=="Windows"',
                       'pillow>=3.3.0;platform_system=="Darwin"',
                       'pyobjc-framework-quartz;platform_system=="Darwin"',
